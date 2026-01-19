@@ -1,0 +1,51 @@
+[versions]
+agp = "8.11.2"
+androidx-activity = "1.12.2"
+androidx-lifecycle = "2.9.6"
+componentsResources = "1.10.0"
+composeMultiplatform = "1.10.0"
+foundation = "1.10.0"
+kamelImage = "1.0.8"
+kotlin = "2.3.0"
+ktor = "3.3.3"
+material3 = "1.9.0"
+materialIconsExtended = "1.7.3"
+runtime = "1.10.0"
+ui = "1.10.0"
+uiToolingPreview = "1.10.0"
+
+[libraries]
+components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "componentsResources" }
+foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "foundation" }
+kamel-decoder-animated-image = { module = "media.kamel:kamel-decoder-animated-image", version.ref = "kamelImage" }
+kamel-decoder-image-bitmap = { module = "media.kamel:kamel-decoder-image-bitmap", version.ref = "kamelImage" }
+kamel-decoder-image-bitmap-resizing = { module = "media.kamel:kamel-decoder-image-bitmap-resizing", version.ref = "kamelImage" }
+kamel-decoder-image-vector = { module = "media.kamel:kamel-decoder-image-vector", version.ref = "kamelImage" }
+kamel-decoder-svg-std = { module = "media.kamel:kamel-decoder-svg-std", version.ref = "kamelImage" }
+kamel-fetcher-resources-android = { module = "media.kamel:kamel-fetcher-resources-android", version.ref = "kamelImage" }
+kamel-fetcher-resources-jvm = { module = "media.kamel:kamel-fetcher-resources-jvm", version.ref = "kamelImage" }
+kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
+kamel-image-default = { module = "media.kamel:kamel-image-default", version.ref = "kamelImage" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-http = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+
+# iOS & Desktop networking
+material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
+runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "runtime" }
+ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "ui" }
+ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

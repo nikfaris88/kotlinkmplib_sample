@@ -1,0 +1,5 @@
+# jitpack.yml in root folder
+jdk:
+  - openjdk17 # or openjdk21 depending on your project needs
+before_install:
+  - chmod +x gradlew
