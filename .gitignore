@@ -1,0 +1,46 @@
+# --- Kotlin/JVM and Gradle ---
+.gradle/
+build/
+**/build/
+*.class
+.kotlin/
+kotlin-js-store/
+
+# --- Android ---
+*.iml
+.idea/
+local.properties
+.navigation/
+captures/
+*.apk
+*.aar
+*.jks
+*.keystore
+
+# --- iOS (Xcode) ---
+*.xcworkspace
+*.xcodeproj
+*.xcresult
+*.xcuserstate
+DerivedData/
+iosApp/iosApp.xcworkspace/
+iosApp/iosApp.xcodeproj/project.xcworkspace/
+iosApp/iosApp.xcodeproj/xcuserdata/
+
+# --- Kotlin Native (iOS/Desktop) ---
+# Ignore the Konan (Kotlin/Native) compiler cache
+.konan/
+
+# --- macOS / System ---
+.DS_Store
+.apple_desktop
+.apple_double
+
+# --- Version Control ---
+# Don't ignore this if you use Git flow or similar tools
+.project
+.settings/
+
+# --- Local Secrets ---
+# Keep your API keys and JitPack auth private
+secrets.properties
