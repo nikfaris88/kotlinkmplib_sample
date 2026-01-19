@@ -10,6 +10,10 @@ plugins {
     `maven-publish`
 }
 
+// ADD THESE TWO LINES HERE:
+group = "com.github.nikfaris88"
+version = "1.0.0"
+
 kotlin {
     androidTarget {
         publishLibraryVariants("release")
