@@ -1,19 +1,23 @@
 import UIKit
 import SwiftUI
 import ComposeApp
-
-struct ComposeView: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> UIViewController {
-        MainViewControllerKt.MainViewController()
-    }
-
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
-}
+import Foundation
 
 struct ContentView: View {
     var body: some View {
-        ComposeView()
-            .ignoresSafeArea()
+        Button("Start Fiuu Payment") {
+            if let rootVC = UIApplication.shared.connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .first?.windows.first?.rootViewController {
+
+                let params: [AnyHashable: Any] = [
+                    "payment_url": "https://your-payment-url.com/..." // build this properly
+                ]
+
+                let vc = StartFiuuPaymentIosKt.startFiuuPaymentIos(paymentParams: params)
+                rootVC.present(vc, animated: true)
+            }
+        }
     }
 }
 

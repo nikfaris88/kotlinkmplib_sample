@@ -29,8 +29,8 @@ android {
 }
 
 dependencies {
-    implementation(projects.composeApp)
     implementation(libs.androidx.activity.compose)
-//    implementation(libs.kotlinkmplib.sample)
+//    implementation(projects.composeApp)
+    implementation(libs.kotlinkmplib.sample)
 }
 
