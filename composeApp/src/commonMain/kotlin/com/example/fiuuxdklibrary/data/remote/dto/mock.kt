@@ -1,7 +1,6 @@
 package com.example.fiuuxdklibrary.data.remote.dto
 
 import com.example.fiuuxdklibrary.domain.entity.PaymentChannel
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
 private val mockJson = """
@@ -1211,6 +1210,8 @@ private val mockJson = """
     ]
 """.trimIndent()
 
+private val json = Json { ignoreUnknownKeys = true }
+
 fun getMockPaymentChannels(): List<PaymentChannel> {
-    return Json{ ignoreUnknownKeys = true }.decodeFromString<List<PaymentChannel>>(mockJson)
+    return json.decodeFromString<List<PaymentChannel>>(mockJson)
 }

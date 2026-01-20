@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    // OR if using Kotlin DSL:
     kotlin("plugin.serialization")
     `maven-publish`
 }
@@ -17,6 +17,8 @@ compose.resources {
 }
 
 kotlin {
+    val xcframework = XCFramework()
+
     androidTarget {
         publishLibraryVariants("release")
         compilerOptions {
@@ -32,6 +34,13 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+
+            binaryOption(
+                "bundleId",
+                "com.fiuu.payment.compose"
+            )
+
+            xcframework.add(this)
         }
     }
     
@@ -119,7 +128,7 @@ publishing {
         withType<MavenPublication> {
             groupId = "com.github.nikfaris88"
             artifactId = "FiuuXDKLibrary"
-            version = "1.0.1"
+            version = "1.0.4"
         }
     }
 }
