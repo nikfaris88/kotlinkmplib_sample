@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     // OR if using Kotlin DSL:
@@ -12,9 +12,9 @@ plugins {
 
 kotlin {
     androidTarget {
-//        publishLibraryVariants("release")
+        publishLibraryVariants("release")
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
 //    jvm()
@@ -85,11 +85,8 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.fiuuxdklibrary"
         minSdk = 33
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        lint.targetSdk = 36
     }
     packaging {
         resources {
@@ -102,13 +99,13 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
 dependencies {
-    debugImplementation(compose.uiTooling)
+    debugImplementation(libs.ui.tooling)
 }
 
 publishing {

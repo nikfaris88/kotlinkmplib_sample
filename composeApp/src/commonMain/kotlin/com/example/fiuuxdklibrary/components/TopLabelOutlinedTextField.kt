@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -39,19 +40,21 @@ fun TopLabelOutlinedTextField(
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,
+
             label = null,
-            modifier = Modifier.fillMaxWidth().height(35.dp),
+            modifier = Modifier.fillMaxWidth().height(45.dp),
             singleLine = true,
             shape = RoundedCornerShape(corner = CornerSize(12.dp)),
             isError = isError,
             trailingIcon = {
                 Icon(imageVector = trailingIcon, contentDescription = null)
             },
+
         )
         if (isError && errorText != null) {
             CustomText(
                 errorText = errorText,
-                modifier = Modifier.padding(start = 16.dp, top = 4.dp)
+                modifier = Modifier.padding(start = 4.dp, top = 4.dp)
             )
         }
     }
