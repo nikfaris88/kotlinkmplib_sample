@@ -2,7 +2,6 @@ package com.example.fiuuxdklibrary.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.fiuuxdklibrary.roboto
+import com.example.fiuuxdklibrary.platform.roboto
 import com.example.fiuuxdklibrary.ui.model.TextSpan
 import com.example.fiuuxdklibrary.ui.model.buildDynamicAnnotatedString
 

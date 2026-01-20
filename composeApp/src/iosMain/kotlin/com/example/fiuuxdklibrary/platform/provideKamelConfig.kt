@@ -1,4 +1,4 @@
-package com.example.fiuuxdklibrary
+package com.example.fiuuxdklibrary.platform
 
 import io.kamel.core.config.KamelConfig
 import io.kamel.core.config.httpUrlFetcher

@@ -3,7 +3,7 @@ package com.example.fiuuxdklibrary.utils
 object NumberFormatter {
 
     fun formatAmount(amount: Double): String {
-        val rounded = (amount * 100).toInt() / 100.0
+        val rounded = amount.toInt() / 100.0
         return rounded.toString().let {
             if (it.contains(".")) {
                 val parts = it.split(".")
