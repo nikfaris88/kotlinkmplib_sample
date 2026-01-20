@@ -1,4 +1,4 @@
-package com.example.fiuuxdklibrary
+package com.example.fiuuxdklibrary.platform
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily

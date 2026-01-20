@@ -1,4 +1,4 @@
-package com.example.fiuuxdklibrary
+package com.example.fiuuxdklibrary.platform
 
 import platform.UIKit.UIDevice
 

@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     // OR if using Kotlin DSL:
@@ -10,18 +10,14 @@ plugins {
     `maven-publish`
 }
 
-// ADD THESE TWO LINES HERE:
-group = "com.github.nikfaris88"
-version = "1.0.0"
-
 kotlin {
     androidTarget {
-        publishLibraryVariants("release")
+//        publishLibraryVariants("release")
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    jvm()
+//    jvm()
 
     listOf(
         iosArm64(),
@@ -66,13 +62,13 @@ kotlin {
             implementation(libs.kamel.decoder.animated.image) // .gif support
         }
 
-        jvmMain {
-            dependencies {
-                // optional modules (choose what you need and add them to your kamel config)
-                implementation(libs.kamel.fetcher.resources.jvm)
-                // ...
-            }
-        }
+//        jvmMain {
+//            dependencies {
+//                // optional modules (choose what you need and add them to your kamel config)
+//                implementation(libs.kamel.fetcher.resources.jvm)
+//                // ...
+//            }
+//        }
 
         iosMain.dependencies {
             implementation(libs.ktor.darwin)
@@ -88,13 +84,13 @@ android {
     namespace = "com.example.fiuuxdklibrary"
     compileSdk = 36
 
-//    defaultConfig {
-//        applicationId = "com.example.fiuuxdklibrary"
-//        minSdk = 33
-//        targetSdk = 36
-//        versionCode = 1
-//        versionName = "1.0"
-//    }
+    defaultConfig {
+        applicationId = "com.example.fiuuxdklibrary"
+        minSdk = 33
+        targetSdk = 36
+        versionCode = 1
+        versionName = "1.0"
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -113,5 +109,14 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+}
+
+publishing {
+    publications {
+        withType<MavenPublication> {
+            groupId = "com.github.nikfaris88"
+            version = "1.0.1"
+        }
+    }
 }
 

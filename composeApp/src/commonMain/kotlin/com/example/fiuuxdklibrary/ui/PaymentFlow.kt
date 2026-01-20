@@ -31,6 +31,7 @@ fun PaymentFlow(
     onRequestClose: () -> Unit,
      ) {
     val state by vm.uiState.collectAsState()
+    // MOCK as multi channel. show all available channel
     val channels = getMockPaymentChannels()
     val eWalletChannels = channels.filter { it.channelType == "EW"}
     val googlePayChannel = channels.firstOrNull { it.name.equals("GooglePay", ignoreCase = true) }
@@ -67,6 +68,7 @@ fun PaymentFlow(
 
                                 Spacer(modifier = Modifier.padding(top = 8.dp))
 
+                                //Getting user info from paymentrequest
                                 OrderDetailsCard(
                                     state = state,
                                     onName = vm::updateName,
@@ -77,7 +79,7 @@ fun PaymentFlow(
 
                                 Spacer(modifier = Modifier.padding(top = 8.dp))
 
-
+                                //THIS PART BELOW WILL UPDATE USER SELECTION CHANNEL
                                 if (googlePayChannel != null) {
                                     QuickPay (
                                         items= pluginChannels.filter { channel ->
@@ -85,10 +87,12 @@ fun PaymentFlow(
                                                     channels.isNotEmpty()
                                         }
                                     ){
-                                        vm.pay(googlePayChannel)
+                                      //DO QUICK PAY USING GOOGLE PAY
                                     }
                                     Spacer(modifier = Modifier.padding(top = 8.dp))
                                 }
+
+                                //SELECTION CHANNEL
                                 PaymentMethods(
                                     items = listOf(
                                         PayWithItem(
@@ -114,8 +118,6 @@ fun PaymentFlow(
                                     ).filter { it.channels.isNotEmpty() }
                                 ) {
                                         item -> onScreenChange( PaymentScreen.Channels(item))
-
-
                                 }
                             }
                         }

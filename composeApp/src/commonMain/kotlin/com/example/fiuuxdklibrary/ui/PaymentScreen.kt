@@ -17,11 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.fiuuxdklibrary.components.PaymentScaffold
+import androidx.compose.ui.unit.sp
 import com.example.fiuuxdklibrary.domain.entity.PaymentChannel
 import com.example.fiuuxdklibrary.ui.model.PayWithItem
 import com.example.fiuuxdklibrary.ui.theme.AppColors
+import com.example.fiuuxdklibrary.utils.NumberFormatter
 import com.example.fiuuxdklibrary.viewmodel.PaymentViewModel
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
@@ -32,41 +34,41 @@ fun PaymentScreen(
     vm: PaymentViewModel,
     item: PayWithItem
 ) {
-    var selected by remember { mutableStateOf<PaymentChannel?>(null) }
+    val uiState by vm.uiState.collectAsState()
 
-  Box(Modifier.fillMaxSize()) {
-    Column(
-        Modifier
-            .fillMaxSize()
-            .background(Color(0xFFF4F6F8))
-            .padding(16.dp)
-    ) {
+    Box(Modifier.fillMaxSize()) {
+        Column(
+            Modifier
+                .fillMaxSize()
+                .background(Color(0xFFF4F6F8))
+                .padding(16.dp)
+        ) {
 
-        Text(
-            "Please Select A Channel To Proceed",
-            style = MaterialTheme.typography.titleMedium
-        )
+            Text(
+                "Please Select A Channel To Proceed",
+                style = MaterialTheme.typography.titleMedium
+            )
 
-        Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(12.dp))
 
-        ChannelGrid(
-            channels = item.channels,
-            selected = selected,
-            onSelect = { selected = it }
+            ChannelGrid(
+                channels = item.channels,
+                selected = uiState.selectedChannel,
+                onSelect = { vm.onChannelSelected(it)}
+            )
+        }
+
+        BottomPayBar(
+            enabled = uiState.selectedChannel != null,
+            amount = vm.uiState.collectAsState().value.amount,
+            currency = vm.uiState.collectAsState().value.currency,
+            onPay = { vm.startPayment() },
+            modifier = Modifier.align(Alignment.BottomCenter)
         )
     }
-
-    BottomPayBar(
-        enabled = selected != null,
-        amount = vm.uiState.collectAsState().value.amount,
-        onPay = {
-            selected?.let { vm.pay(it) }
-        },
-        modifier = Modifier.align(Alignment.BottomCenter)
-    )
-}
 }
 
+//PAYMENT CHANNEL SELECTION
 @Composable
 private fun ChannelGrid(
     channels: List<PaymentChannel>,
@@ -105,15 +107,13 @@ fun ChannelGridItem(
             if (selected) MaterialTheme.colorScheme.primary
             else MaterialTheme.colorScheme.outline
         ),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White
-        )
+        colors = CardDefaults.cardColors(containerColor = if (selected) AppColors.TextHint else Color.White)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(8.dp),
-            verticalArrangement = Arrangement.SpaceBetween,
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -121,7 +121,7 @@ fun ChannelGridItem(
                 KamelImage(
                     contentScale = ContentScale.Fit,
                     resource = asyncPainterResource(channel.logoUrl3),
-                    modifier = Modifier.size(40.dp),
+                    modifier = Modifier.size(60.dp),
                     contentDescription = channel.title,
                     onLoading = {
                         CircularProgressIndicator(modifier = Modifier.size(16.dp))
@@ -132,10 +132,13 @@ fun ChannelGridItem(
                 )
             }
 
+            Spacer(modifier = Modifier.size(4.dp))
             Text(
                 channel.title,
                 style = MaterialTheme.typography.labelMedium,
-                maxLines = 2
+                lineHeight = 20.sp,
+                maxLines = 2,
+                overflow = TextOverflow.Clip,
             )
         }
     }
@@ -145,6 +148,7 @@ fun ChannelGridItem(
 fun BottomPayBar(
     enabled: Boolean,
     amount: Long,
+    currency: String,
     onPay: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -161,7 +165,7 @@ fun BottomPayBar(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp)
         ) {
-            Text("Pay ($amount)")
+            Text("Pay ($currency ${NumberFormatter.formatAmount(amount.toDouble())})")
         }
 
         Spacer(Modifier.height(8.dp))
