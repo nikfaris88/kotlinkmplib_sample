@@ -112,6 +112,7 @@ publishing {
     publications {
         withType<MavenPublication> {
             groupId = "com.github.nikfaris88"
+            artifactId = "FiuuXDKLibrary"
             version = "1.0.1"
         }
     }
