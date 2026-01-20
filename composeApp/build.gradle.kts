@@ -10,6 +10,12 @@ plugins {
     `maven-publish`
 }
 
+compose.resources {
+    // IMPORTANT for publishing: make generated `Res` stable across environments (incl. JitPack)
+    packageOfResClass = "com.example.fiuuxdklibrary.generated.resources"
+    publicResClass = true
+}
+
 kotlin {
     androidTarget {
         publishLibraryVariants("release")

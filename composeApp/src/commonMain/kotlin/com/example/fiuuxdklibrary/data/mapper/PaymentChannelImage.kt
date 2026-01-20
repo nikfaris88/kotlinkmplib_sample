@@ -6,12 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import fiuuxdklibrary.composeapp.generated.resources.Res
-import fiuuxdklibrary.composeapp.generated.resources.apple_logo
-import fiuuxdklibrary.composeapp.generated.resources.compose_multiplatform
-import fiuuxdklibrary.composeapp.generated.resources.gpay_logo_white
+import com.example.fiuuxdklibrary.generated.resources.Res
+import com.example.fiuuxdklibrary.generated.resources.apple_logo
+import com.example.fiuuxdklibrary.generated.resources.gpay_logo_white
 import org.jetbrains.compose.resources.painterResource
 
 @Composable

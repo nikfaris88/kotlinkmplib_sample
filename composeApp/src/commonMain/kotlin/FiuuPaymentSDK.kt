@@ -45,7 +45,7 @@ fun FiuuPaymentSDK(
                 screen = screen,
                 showAppBar = true,
                 onScreenChange = { screen = it },
-                onRequestClose = { onRequestClose }
+                onRequestClose = { }
 
             )
         }
