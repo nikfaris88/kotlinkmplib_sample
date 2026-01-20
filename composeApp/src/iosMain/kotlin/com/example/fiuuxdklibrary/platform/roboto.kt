@@ -1,11 +1,9 @@
 package com.example.fiuuxdklibrary.platform
 
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 
-actual val roboto: FontFamily = FontFamily(
-    Font("Roboto-Regular.ttf", FontWeight.Normal),
-    Font("Roboto-Medium.ttf", FontWeight.Medium),
-    Font("Roboto-Bold.ttf", FontWeight.Bold)
-)
+/**
+ * iOS cannot reference Android `R.font.*`, and Compose iOS doesn't load `.ttf` via `Font("file.ttf")`.
+ * Use the default font family unless you set up a proper multiplatform font-loading solution.
+ */
+actual val roboto: FontFamily = FontFamily.Default
