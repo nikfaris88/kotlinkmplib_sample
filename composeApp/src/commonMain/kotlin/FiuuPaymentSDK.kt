@@ -30,25 +30,24 @@ fun FiuuPaymentSDK(
     }
 
     //check params if express right away startPayment else open paymentflow
-    val paymentRequest = params.toPaymentRequest()
-
-    when  {
-        paymentRequest.mpExpressMode -> {
-            // Calling payment page directly (StartPayment)
-            println("EXPRESS MODE")
+    val paymentRequest = remember(params){
+        params.toPaymentRequest()
+    }
+    LaunchedEffect(paymentRequest.mpExpressMode) {
+        if (paymentRequest.mpExpressMode) {
             vm.startPayment()
         }
+    }
 
-        else -> {
-            PaymentFlow(
-                vm = vm,
-                screen = screen,
-                showAppBar = true,
-                onScreenChange = { screen = it },
-                onRequestClose = { }
+    if (!paymentRequest.mpExpressMode) {
+        PaymentFlow(
+            vm = vm,
+            screen = screen,
+            showAppBar = true,
+            onScreenChange = { screen = it },
+            onRequestClose = { }
 
-            )
-        }
+        )
     }
 }
 
