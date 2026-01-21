@@ -30,7 +30,6 @@ android {
 
 dependencies {
     implementation(libs.androidx.activity.compose)
-//    implementation(projects.composeApp)
-    implementation(libs.kotlinkmplib.sample)
+    implementation(projects.composeApp)
 }
 
