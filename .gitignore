@@ -44,3 +44,6 @@ iosApp/iosApp.xcodeproj/xcuserdata/
 # --- Local Secrets ---
 # Keep your API keys and JitPack auth private
 secrets.properties
+
+*.xcframework
+*.xcframework.zip
