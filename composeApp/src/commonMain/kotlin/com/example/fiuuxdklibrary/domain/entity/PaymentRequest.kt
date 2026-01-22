@@ -1,7 +1,12 @@
 package com.example.fiuuxdklibrary.domain.entity
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
 
+@Serializable
 data class PaymentRequest(
     // General Parameters with mp_ mapping
     @SerialName("mp_amount") val mpAmount: String? = null,

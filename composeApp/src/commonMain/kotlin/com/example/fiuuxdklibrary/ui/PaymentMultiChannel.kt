@@ -17,20 +17,23 @@ import com.example.fiuuxdklibrary.components.PaymentMethods
 import com.example.fiuuxdklibrary.components.PaymentScaffold
 import com.example.fiuuxdklibrary.components.QuickPay
 import com.example.fiuuxdklibrary.data.remote.dto.getMockPaymentChannels
+import com.example.fiuuxdklibrary.domain.entity.PaymentRequest
 import com.example.fiuuxdklibrary.ui.model.PayWithItem
 import com.example.fiuuxdklibrary.ui.model.PaymentScreen
 import com.example.fiuuxdklibrary.viewmodel.PaymentViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun PaymentFlow(
+fun PaymentMultiChannel(
     vm: PaymentViewModel,
+    paymentRequest: PaymentRequest,
     screen: PaymentScreen,
     onScreenChange: (PaymentScreen) -> Unit,
     showAppBar: Boolean = true,
     onRequestClose: () -> Unit,
      ) {
     val state by vm.uiState.collectAsState()
+
     // MOCK as multi channel. show all available channel
     val channels = getMockPaymentChannels()
     val eWalletChannels = channels.filter { it.channelType == "EW"}
@@ -79,45 +82,57 @@ fun PaymentFlow(
 
                                 Spacer(modifier = Modifier.padding(top = 8.dp))
 
-                                //THIS PART BELOW WILL UPDATE USER SELECTION CHANNEL
-                                if (googlePayChannel != null) {
-                                    QuickPay (
-                                        items= pluginChannels.filter { channel ->
-                                            channel.name == "GooglePay" &&
-                                                    channels.isNotEmpty()
-                                        }
-                                    ){
-                                      //DO QUICK PAY USING GOOGLE PAY
-                                    }
-                                    Spacer(modifier = Modifier.padding(top = 8.dp))
-                                }
+                                when {
+                                    paymentRequest.mpChannel?.trim()?.lowercase() == "multi" ->{
+                                        Column {
+                                            //THIS PART BELOW WILL UPDATE USER SELECTION CHANNEL
+                                            if (googlePayChannel != null) {
+                                                QuickPay (
+                                                    items= pluginChannels.filter { channel ->
+                                                        channel.name == "GooglePay" &&
+                                                                channels.isNotEmpty()
+                                                    }
+                                                ){
+                                                    //DO QUICK PAY USING GOOGLE PAY
+                                                }
+                                                Spacer(modifier = Modifier.padding(top = 8.dp))
+                                            }
 
-                                //SELECTION CHANNEL
-                                PaymentMethods(
-                                    items = listOf(
-                                        PayWithItem(
-                                            title = "Credit / Debit Card",
-                                            channels = ccChannels,
-                                        ),
-                                        PayWithItem(
-                                            title = "Online Banking",
-                                            channels = fpxChannels,
-                                        ),
-                                        PayWithItem(
-                                            title = "eWallets",
-                                            channels = eWalletChannels
-                                        ),
-                                        PayWithItem(
-                                            title = "Buy Now Pay Later",
-                                            channels = bnplChannels
-                                        ),
-                                        PayWithItem(
-                                            title = "Fiuu CASH",
-                                            channels = cashChannels
-                                        ),
-                                    ).filter { it.channels.isNotEmpty() }
-                                ) {
-                                        item -> onScreenChange( PaymentScreen.Channels(item))
+                                            //SELECTION CHANNEL
+                                            PaymentMethods(
+                                                items = listOf(
+                                                    PayWithItem(
+                                                        title = "Credit / Debit Card",
+                                                        channels = ccChannels,
+                                                    ),
+                                                    PayWithItem(
+                                                        title = "Online Banking",
+                                                        channels = fpxChannels,
+                                                    ),
+                                                    PayWithItem(
+                                                        title = "eWallets",
+                                                        channels = eWalletChannels
+                                                    ),
+                                                    PayWithItem(
+                                                        title = "Buy Now Pay Later",
+                                                        channels = bnplChannels
+                                                    ),
+                                                    PayWithItem(
+                                                        title = "Fiuu CASH",
+                                                        channels = cashChannels
+                                                    ),
+                                                ).filter { it.channels.isNotEmpty() }
+                                            ) {
+                                                    item -> onScreenChange( PaymentScreen.Channels(item))
+                                            }
+                                        }
+                                    } else -> {
+                                        SinglePaymentScreen(
+                                            vm = vm,
+                                            paymentRequest,
+                                            onRequestClose = onRequestClose
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -140,13 +155,12 @@ fun PaymentFlow(
             }
 
             is PaymentScreen.Channels -> {
-                PaymentScreen(
+                PaymentChannelSelection(
                     vm = vm,
                     item = screen.item,
                 )
             }
+
         }
-
-
     }
 }
