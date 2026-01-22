@@ -151,7 +151,7 @@ class PaymentViewModel(
     private fun Throwable.toPaymentError(): PaymentError {
         return when (this) {
             is IllegalArgumentException -> PaymentError.InvalidChannel(message ?: "")
-            else -> PaymentError.Unknown
+            else -> PaymentError.Unknown()
         }
     }
 
