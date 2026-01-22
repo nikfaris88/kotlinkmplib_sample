@@ -2,8 +2,8 @@ package com.example.fiuuxdklibrary
 
 import FiuuPaymentSDK
 import androidx.compose.ui.window.ComposeUIViewController
-import platform.UIKit.UIViewController
 import platform.Foundation.NSDictionary
+import platform.UIKit.UIViewController
 
 @Suppress("unused")
 fun startFiuuPaymentIos(

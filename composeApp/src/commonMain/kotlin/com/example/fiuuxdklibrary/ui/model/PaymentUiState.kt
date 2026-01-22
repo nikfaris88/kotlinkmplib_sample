@@ -26,6 +26,6 @@ enum class FormError {
 
 sealed class PaymentError (val code: String) : Throwable() {
     data class InvalidChannel(val channel: String?) : PaymentError("INVALID CHANNEL")
-    object NetworkError : PaymentError("NETWORK ERROR")
-    object Unknown : PaymentError("UNKNOWN ERROR")
+    class NetworkError : PaymentError("NETWORK ERROR")
+    class Unknown : PaymentError("UNKNOWN ERROR")
 }

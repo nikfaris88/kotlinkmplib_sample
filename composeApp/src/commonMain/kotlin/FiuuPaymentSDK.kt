@@ -85,5 +85,5 @@ fun StartPaymentWebView(
     }
 
     // Optional: UI for payment flow if needed
-    val paymentRequest = params.toPaymentRequest()
+    params.toPaymentRequest()
 }

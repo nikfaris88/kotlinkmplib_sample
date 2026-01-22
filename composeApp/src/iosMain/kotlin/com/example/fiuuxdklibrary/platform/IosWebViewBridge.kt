@@ -2,7 +2,6 @@ package com.example.fiuuxdklibrary.platform
 
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSURL
-import platform.Foundation.NSURLRequest
 import platform.Foundation.NSURLRequest.Companion.requestWithURL
 import platform.UIKit.UIViewController
 import platform.WebKit.WKNavigation
@@ -28,7 +27,7 @@ class IosWebViewBridge(private val controller: UIViewController) : WebViewBridge
             onFailure("Invalid URL: $url")
             return
         }
-        webView.loadRequest(NSURLRequest.requestWithURL(nsUrl))
+        webView.loadRequest(requestWithURL(nsUrl))
 
         webView.navigationDelegate = object : NSObject(), WKNavigationDelegateProtocol {
             override fun webView(webView: WKWebView, didFinishNavigation: WKNavigation?) {

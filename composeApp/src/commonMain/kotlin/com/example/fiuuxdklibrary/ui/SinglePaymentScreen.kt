@@ -77,11 +77,15 @@ fun SinglePaymentScreen(
             is PaymentError.InvalidChannel ->
                 "This payment channel is not supported."
 
-            PaymentError.NetworkError ->
+            PaymentError.NetworkError() ->
                 "Network error. Please check your internet connection."
 
-            PaymentError.Unknown ->
+            PaymentError.Unknown() ->
                 "Unexpected error occurred."
+
+            else -> {
+                "Unexpected error occurred."
+            }
         }
 
         CustomAlertDialog(
