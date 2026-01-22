@@ -23,10 +23,6 @@ class IosWebViewBridge(private val controller: UIViewController) : WebViewBridge
         val webView =
             WKWebView(frame = controller.view.bounds, configuration = WKWebViewConfiguration())
         val nsUrl = NSURL(string = url)
-        if (nsUrl == null) {
-            onFailure("Invalid URL: $url")
-            return
-        }
         webView.loadRequest(requestWithURL(nsUrl))
 
         webView.navigationDelegate = object : NSObject(), WKNavigationDelegateProtocol {
