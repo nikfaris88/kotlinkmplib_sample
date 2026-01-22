@@ -80,7 +80,6 @@ fun PaymentMethodRow(
                         channel.logoUrl3?.let { url ->
                             KamelImage(
                                 contentScale = ContentScale.Fit,
-                                resource = asyncPainterResource(url),
                                 modifier = Modifier.size(40.dp),
                                 contentDescription = channel.title,
                                 onLoading = {
@@ -88,7 +87,8 @@ fun PaymentMethodRow(
                                 },
                                 onFailure = {
                                     Icon(Icons.Default.BrokenImage, contentDescription = null)
-                                }
+                                },
+                                resource = { asyncPainterResource(url) },
                             )
                         }
                     }
