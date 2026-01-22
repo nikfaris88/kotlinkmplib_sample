@@ -14,7 +14,7 @@ data class PaymentUiState(
     val loading: Boolean = false,
     val formError: FormError? = null,
     val paymentSuccess: PaymentResponseDto? = null,
-    val paymentError: String? = null,
+    val paymentError: PaymentError? = null,
     val selectedChannel: PaymentChannel? = null
 )
 
@@ -22,4 +22,10 @@ enum class FormError {
     INVALID_EMAIL,
     INVALID_PHONE,
     EMPTY_NAME
+}
+
+sealed class PaymentError (val code: String) : Throwable() {
+    data class InvalidChannel(val channel: String?) : PaymentError("INVALID CHANNEL")
+    object NetworkError : PaymentError("NETWORK ERROR")
+    object Unknown : PaymentError("UNKNOWN ERROR")
 }

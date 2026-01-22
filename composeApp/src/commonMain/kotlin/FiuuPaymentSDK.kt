@@ -12,7 +12,7 @@ import com.example.fiuuxdklibrary.data.remote.dto.PaymentResponseDto
 import com.example.fiuuxdklibrary.data.repository.FiuuPaymentRepository
 import com.example.fiuuxdklibrary.domain.entity.toPaymentRequest
 import com.example.fiuuxdklibrary.platform.WebViewBridge
-import com.example.fiuuxdklibrary.ui.PaymentFlow
+import com.example.fiuuxdklibrary.ui.PaymentMultiChannel
 import com.example.fiuuxdklibrary.ui.model.PaymentScreen
 import com.example.fiuuxdklibrary.viewmodel.PaymentViewModel
 
@@ -40,12 +40,13 @@ fun FiuuPaymentSDK(
     }
 
     if (!paymentRequest.mpExpressMode) {
-        PaymentFlow(
+        PaymentMultiChannel(
             vm = vm,
+            paymentRequest = paymentRequest,
             screen = screen,
             showAppBar = true,
             onScreenChange = { screen = it },
-            onRequestClose = { }
+            onRequestClose = onRequestClose
 
         )
     }

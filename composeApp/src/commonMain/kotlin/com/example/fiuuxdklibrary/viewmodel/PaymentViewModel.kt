@@ -8,6 +8,7 @@ import com.example.fiuuxdklibrary.domain.entity.PaymentRequest
 import com.example.fiuuxdklibrary.domain.entity.toPaymentRequest
 import com.example.fiuuxdklibrary.platform.WebViewBridge
 import com.example.fiuuxdklibrary.ui.model.FormError
+import com.example.fiuuxdklibrary.ui.model.PaymentError
 import com.example.fiuuxdklibrary.ui.model.PaymentUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -72,6 +73,12 @@ class PaymentViewModel(
         _uiState.update { it.copy(selectedChannel = channel) }
     }
 
+    fun setPaymentError(error: PaymentError) {
+        _uiState.update {
+            it.copy(paymentError = error)
+        }
+    }
+
     fun startPayment() {
         val request = currentRequest ?: return
 
@@ -100,7 +107,7 @@ class PaymentViewModel(
             _uiState.update {
                 it.copy(
                     loading = false,
-                    paymentError = result.exceptionOrNull()?.message
+                    paymentError = result.exceptionOrNull()?.toPaymentError()
                 )
             }
 
@@ -112,7 +119,7 @@ class PaymentViewModel(
                 // Here you can open WebView or pass URL to client
                 _uiState.update { it.copy(paymentSuccess = null) }
             }.onFailure { e ->
-                _uiState.update { it.copy(paymentError = e.message) }
+                _uiState.update { it.copy(paymentError = e.toPaymentError()) }
             }
         }
     }
@@ -139,5 +146,18 @@ class PaymentViewModel(
 //                "amount=${request.mpAmount}&order_id=${request.mpOrderID}" +
 //                "&username=${request.mpUsername}&channel=${request.mpChannel}" +
 //                "&currency=${request.mpCurrency ?: "MYR"}"
+    }
+
+    private fun Throwable.toPaymentError(): PaymentError {
+        return when (this) {
+            is IllegalArgumentException -> PaymentError.InvalidChannel(message ?: "")
+            else -> PaymentError.Unknown
+        }
+    }
+
+    fun clearPaymentError() {
+        _uiState.update {
+            it.copy(paymentError = null)
+        }
     }
 }
