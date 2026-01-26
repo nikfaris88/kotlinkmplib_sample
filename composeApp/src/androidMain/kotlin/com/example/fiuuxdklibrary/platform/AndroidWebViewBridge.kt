@@ -7,11 +7,12 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
 import androidx.core.net.toUri
+import java.net.URLEncoder
 
 class AndroidWebViewBridge(private val activity: ComponentActivity) : WebViewBridge {
 
     @SuppressLint("SetJavaScriptEnabled")
-    override fun openUrl(
+    override fun openGetUrl(
         url: String,
         onSuccess: () -> Unit,
         onFailure: (String?) -> Unit,
@@ -35,4 +36,30 @@ class AndroidWebViewBridge(private val activity: ComponentActivity) : WebViewBri
             activity.setContentView(webView)
         }
     }
+
+    override fun openPostUrl(
+        url: String,
+        postData: Map<String, String>,
+        onSuccess: () -> Unit,
+        onFailure: (String?) -> Unit,
+        onClose: () -> Unit
+    ) {
+        val webView = WebView(activity)
+
+        webView.settings.javaScriptEnabled = true
+        webView.settings.domStorageEnabled = true
+
+        webView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                onSuccess()
+            }
+        }
+
+        activity.setContentView(webView)
+
+        val encodedPostData = postData.entries.joinToString("&") { (k, v) ->
+            "${URLEncoder.encode(k, "UTF-8")}=${URLEncoder.encode(v, "UTF-8")}"
+        }.toByteArray(Charsets.UTF_8)
+
+        webView.postUrl(url, encodedPostData)    }
 }

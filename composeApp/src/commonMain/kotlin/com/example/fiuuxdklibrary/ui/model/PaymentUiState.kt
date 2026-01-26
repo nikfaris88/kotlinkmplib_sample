@@ -28,4 +28,5 @@ sealed class PaymentError (val code: String) : Throwable() {
     data class InvalidChannel(val channel: String?) : PaymentError("INVALID CHANNEL")
     class NetworkError : PaymentError("NETWORK ERROR")
     class Unknown : PaymentError("UNKNOWN ERROR")
+    class GenericError : PaymentError("GENERIC ERROR")
 }

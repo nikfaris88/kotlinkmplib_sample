@@ -16,7 +16,11 @@ data class PaymentChannel (
 
     val currency: List<String> = emptyList(),
     val displayHPP: String? = null,
+
+    @SerialName("filename")
     val fileName: String? = null,
+
+    @SerialName("maskname")
     val maskName: String? = null,
     val publicMaskName: String? = null,
     val position: Int? = null,

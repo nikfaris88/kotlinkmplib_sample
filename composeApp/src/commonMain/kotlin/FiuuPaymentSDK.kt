@@ -1,13 +1,12 @@
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.compose.runtime.staticCompositionLocalOf
+import com.example.fiuuxdklibrary.data.remote.HttpClientFactory
+import com.example.fiuuxdklibrary.data.remote.KtorApiService
 import com.example.fiuuxdklibrary.data.remote.dto.PaymentResponseDto
 import com.example.fiuuxdklibrary.data.repository.FiuuPaymentRepository
 import com.example.fiuuxdklibrary.domain.entity.toPaymentRequest
@@ -22,8 +21,25 @@ fun FiuuPaymentSDK(
     onPaymentResult: (PaymentResponseDto) -> Unit,
     onRequestClose: () -> Unit
 ) {
-    val vm = remember { PaymentViewModel(FiuuPaymentRepository()) }
+
+    val localWebViewBridge = staticCompositionLocalOf <WebViewBridge> {
+        error("Webviewbridge not provided")
+    }
+
+    val webViewBridge = localWebViewBridge.current
+
+    val vm = remember { PaymentViewModel(FiuuPaymentRepository(
+        KtorApiService(
+            HttpClientFactory()
+        )
+    )) }
     var screen by remember { mutableStateOf<PaymentScreen>(PaymentScreen.Methods) }
+
+
+
+    LaunchedEffect(params) {
+        vm.attachWebViewBridge(webViewBridge)
+    }
 
     LaunchedEffect(params) {
         vm.initialize(params)
@@ -51,39 +67,41 @@ fun FiuuPaymentSDK(
         )
     }
 }
-
-@Composable
-fun StartPaymentWebView(
-    params: Map<String, Any?>,
-    webViewBridge: WebViewBridge,
-    onPaymentResult: (PaymentResponseDto) -> Unit,
-    onRequestClose: () -> Unit
-) {
-    val vm = remember { PaymentViewModel(FiuuPaymentRepository()) }
-    val lifecycleOwner = LocalLifecycleOwner.current
-
-    LaunchedEffect(params) {
-        vm.startPaymentWebView(webViewBridge)
-    }
-
-    DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME) {
-                // Called when app comes back to foreground (after TNG app)
-                println("FIUU ONRESUME")
-            }
-
-            if (event == Lifecycle.Event.ON_DESTROY) {
-                println("FIUU ONDESTROY")
-            }
-        }
-        lifecycleOwner.lifecycle.addObserver(observer)
-
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
-        }
-    }
-
-    // Optional: UI for payment flow if needed
-    params.toPaymentRequest()
-}
+//
+//@Composable
+//fun StartPaymentWebView(
+//    params: Map<String, Any?>,
+//    webViewBridge: WebViewBridge,
+//    onPaymentResult: (PaymentResponseDto) -> Unit,
+//    onRequestClose: () -> Unit
+//) {
+//    val vm = remember { PaymentViewModel(FiuuPaymentRepository(
+//        KtorApiService(HttpClientFactory())
+//    )) }
+//    val lifecycleOwner = LocalLifecycleOwner.current
+//
+//    LaunchedEffect(params) {
+//        vm.startPaymentWebView(webViewBridge)
+//    }
+//
+//    DisposableEffect(lifecycleOwner) {
+//        val observer = LifecycleEventObserver { _, event ->
+//            if (event == Lifecycle.Event.ON_RESUME) {
+//                // Called when app comes back to foreground (after TNG app)
+//                println("FIUU ONRESUME")
+//            }
+//
+//            if (event == Lifecycle.Event.ON_DESTROY) {
+//                println("FIUU ONDESTROY")
+//            }
+//        }
+//        lifecycleOwner.lifecycle.addObserver(observer)
+//
+//        onDispose {
+//            lifecycleOwner.lifecycle.removeObserver(observer)
+//        }
+//    }
+//
+//    // Optional: UI for payment flow if needed
+//    params.toPaymentRequest()
+//}

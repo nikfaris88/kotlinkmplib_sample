@@ -99,7 +99,7 @@ fun PaymentMultiChannel(
                                             if (googlePayChannel != null) {
                                                 QuickPay (
                                                     items= pluginChannels.filter { channel ->
-                                                        channel.name == "GooglePay" &&
+                                                        channel.maskName == "GooglePay" &&
                                                                 channels.isNotEmpty()
                                                     }
                                                 ){
@@ -137,11 +137,20 @@ fun PaymentMultiChannel(
                                             }
                                         }
                                     } else -> {
-                                        SinglePaymentScreen(
-                                            vm = vm,
-                                            paymentRequest,
-                                            onRequestClose = onRequestClose
-                                        )
+                                        if (paymentRequest.mpChannel?.trim()?.lowercase()?.contains("credit") == true) {
+                                            CardPaymentScreen(
+                                                vm = vm,
+                                                paymentRequest,
+                                                onRequestClose = onRequestClose
+                                            )
+                                        }else {
+                                            SinglePaymentScreen(
+                                                vm = vm,
+                                                paymentRequest,
+                                                onRequestClose = onRequestClose
+                                            )
+                                        }
+
                                     }
                                 }
                             }
