@@ -1,5 +1,6 @@
 package com.example.fiuuxdklibrary.domain.entity
 
+import com.example.fiuuxdklibrary.data.remote.dto.PaymentRequestDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -56,5 +57,33 @@ fun Map<String, Any?>.toPaymentRequest(): PaymentRequest {
         mpDevMode = this["mp_dev_mode"] as? Boolean ?: false,
 
         deviceInfo = this["device_info"]?.toString()
+    )
+}
+
+fun PaymentRequest.toDto(
+    txnType: String,
+    uat: Boolean,
+    lVersion: String
+): PaymentRequestDto {
+    return PaymentRequestDto(
+        mp_merchant_ID = mpMerchantID
+            ?: error("mpMerchantID is required"),
+
+        mp_verification_key = mpVerificationKey
+            ?: error("mpVerificationKey is required"),
+
+        txnType = txnType,
+        txnCurrency = mpCurrency
+            ?: error("mpCurrency is required"),
+
+        txnAmount = mpAmount
+            ?: error("mpAmount is required"),
+
+        uat = uat,
+
+        txnChannel = mpChannel
+            ?: error("mpChannel is required"),
+
+        l_version = lVersion
     )
 }

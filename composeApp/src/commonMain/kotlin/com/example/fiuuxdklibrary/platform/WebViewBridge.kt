@@ -8,8 +8,16 @@ interface WebViewBridge {
      * @param onFailure Called when payment fails.
      * @param onClose Called when the WebView is closed by user.
      */
-    fun openUrl(
+    fun openGetUrl(
         url: String,
+        onSuccess: () -> Unit,
+        onFailure: (String?) -> Unit,
+        onClose: () -> Unit
+    )
+
+    fun openPostUrl(
+        url: String,
+        postData: Map<String, String>,
         onSuccess: () -> Unit,
         onFailure: (String?) -> Unit,
         onClose: () -> Unit

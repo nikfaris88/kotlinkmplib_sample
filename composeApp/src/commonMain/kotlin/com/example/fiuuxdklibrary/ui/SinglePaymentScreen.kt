@@ -60,7 +60,7 @@ fun SinglePaymentScreen(
     val uiState by vm.uiState.collectAsState()
 
     val selectedChannel = remember(paymentRequest.mpChannel) {
-        channels.firstOrNull { it.name == paymentRequest.mpChannel }
+        channels.firstOrNull { it.name == paymentRequest.mpChannel || it.name == paymentRequest.mpChannel }
     }
 
     LaunchedEffect(selectedChannel) {
