@@ -12,7 +12,7 @@ plugins {
 
 compose.resources {
     // IMPORTANT for publishing: make generated `Res` stable across environments (incl. JitPack)
-    packageOfResClass = "com.example.fiuuxdklibrary.generated.resources"
+    packageOfResClass = "com.fiuu.xdklibrary.generated.resources"
     publicResClass = true
 }
 
@@ -52,6 +52,8 @@ kotlin {
             implementation(libs.kamel.fetcher.resources.android)
             implementation(libs.kamel.decoder.image.bitmap.resizing) // android only right now
 //            implementation(libs.kamel.http.client)
+            implementation(libs.androidx.webkit.v1120)
+            implementation(libs.androidx.browser.v150)
 
         }
         commonMain.dependencies {
@@ -96,7 +98,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.example.fiuuxdklibrary"
+    namespace = "com.fiuu.xdklibrary"
     compileSdk = 36
 
     defaultConfig {

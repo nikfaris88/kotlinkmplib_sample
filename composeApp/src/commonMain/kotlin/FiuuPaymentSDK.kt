@@ -5,15 +5,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.example.fiuuxdklibrary.data.remote.HttpClientFactory
-import com.example.fiuuxdklibrary.data.remote.KtorApiService
-import com.example.fiuuxdklibrary.data.remote.dto.PaymentResponseDto
-import com.example.fiuuxdklibrary.data.repository.FiuuPaymentRepository
-import com.example.fiuuxdklibrary.domain.entity.toPaymentRequest
-import com.example.fiuuxdklibrary.platform.WebViewBridge
-import com.example.fiuuxdklibrary.ui.PaymentMultiChannel
-import com.example.fiuuxdklibrary.ui.model.PaymentScreen
-import com.example.fiuuxdklibrary.viewmodel.PaymentViewModel
+import com.fiuu.xdklibrary.data.remote.HttpClientFactory
+import com.fiuu.xdklibrary.data.remote.KtorApiService
+import com.fiuu.xdklibrary.data.remote.dto.PaymentResponseDto
+import com.fiuu.xdklibrary.data.repository.FiuuPaymentRepository
+import com.fiuu.xdklibrary.domain.entity.toPaymentRequest
+import com.fiuu.xdklibrary.platform.WebViewBridge
+import com.fiuu.xdklibrary.ui.PaymentMultiChannel
+import com.fiuu.xdklibrary.ui.model.PaymentScreen
+import com.fiuu.xdklibrary.viewmodel.PaymentViewModel
+
+
+
+val localWebViewBridge = staticCompositionLocalOf<WebViewBridge> {
+    error("WebViewBridge not provided")
+}
 
 @Composable
 fun FiuuPaymentSDK(
@@ -21,11 +27,7 @@ fun FiuuPaymentSDK(
     onPaymentResult: (PaymentResponseDto) -> Unit,
     onRequestClose: () -> Unit
 ) {
-
-    val localWebViewBridge = staticCompositionLocalOf <WebViewBridge> {
-        error("Webviewbridge not provided")
-    }
-
+//    CheckoutScreen()
     val webViewBridge = localWebViewBridge.current
 
     val vm = remember { PaymentViewModel(FiuuPaymentRepository(
@@ -34,8 +36,6 @@ fun FiuuPaymentSDK(
         )
     )) }
     var screen by remember { mutableStateOf<PaymentScreen>(PaymentScreen.Methods) }
-
-
 
     LaunchedEffect(params) {
         vm.attachWebViewBridge(webViewBridge)

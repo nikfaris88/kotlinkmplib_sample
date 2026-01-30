@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.fiuuxdklibrary.sample"
+    namespace = "com.fiuu.xdklibrary.sample"
     compileSdk = 36
 
     defaultConfig {
