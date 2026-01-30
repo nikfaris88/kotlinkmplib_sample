@@ -2,6 +2,7 @@
 agp = "8.11.2"
 androidx-activity = "1.12.2"
 androidx-lifecycle = "2.9.6"
+browserVersion = "1.5.0"
 componentsResources = "1.10.0"
 composeMultiplatform = "1.10.0"
 foundation = "1.10.0"
@@ -15,8 +16,13 @@ runtime = "1.10.0"
 ui = "1.10.0"
 uiToolingPreview = "1.10.0"
 kmplibrary = "8.3.2"
+webkit = "1.15.0"
+browser = "1.9.0"
+webkitVersion = "1.12.0"
 
 [libraries]
+androidx-browser-v150 = { module = "androidx.browser:browser", version.ref = "browserVersion" }
+androidx-webkit-v1120 = { module = "androidx.webkit:webkit", version.ref = "webkitVersion" }
 components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "componentsResources" }
 foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "foundation" }
 kamel-decoder-animated-image = { module = "media.kamel:kamel-decoder-animated-image", version.ref = "kamelImage" }
@@ -45,6 +51,8 @@ runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "run
 ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "ui" }
 ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "ui" }
 ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
+androidx-webkit = { group = "androidx.webkit", name = "webkit", version.ref = "webkit" }
+androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
