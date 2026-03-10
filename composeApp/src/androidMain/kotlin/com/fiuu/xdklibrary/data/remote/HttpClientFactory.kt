@@ -17,7 +17,7 @@ actual class HttpClientFactory {
                 })
             }
             defaultRequest {
-                url("http://10.20.12.40:4000") // default api url
+                url("https://uat-mobile.fiuu.com/pay") // default api url
             }
         }
     }

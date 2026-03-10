@@ -16,7 +16,7 @@ class KtorApiService(
     private val httpClient = httpClientFactory.create()
 
     override suspend fun generatePayment(request: PaymentRequestDto): PaymentResponseDto {
-        return httpClient.post("/generate-payment") {
+        return httpClient.post("/transaction/create") {
             contentType(ContentType.Application.Json)
             setBody(Json.encodeToString(request))
         }.body()
