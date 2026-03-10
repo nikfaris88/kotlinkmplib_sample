@@ -9,7 +9,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.fiuuxdklibrary.sample"
+        applicationId = "com.fiuu.xdklibrary.sample"
         minSdk = 33
         targetSdk = 36
         versionCode = 1

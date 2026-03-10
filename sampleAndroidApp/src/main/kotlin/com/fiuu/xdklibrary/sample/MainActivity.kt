@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                 "mp_currency" to "MYR",
                 "mp_country" to "MY",
                 "mp_verification_key" to "ee738b541eff7b6b495e44771f71c0ec",
-                "mp_channel" to "multi",
+                "mp_channel" to "credit",
                 "mp_bill_description" to "Purchase of item X",
                 "mp_bill_name" to "John Doe",
                 "mp_bill_email" to "john@example.com",
