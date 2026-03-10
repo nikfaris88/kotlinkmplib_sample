@@ -5,14 +5,20 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PaymentResponseDto(
-    @SerialName("RequestURL")
+
+
+    @SerialName("requestURL")
     val requestURL: String,
-    @SerialName("RequestMethod")
+    @SerialName("requestMethod")
     val requestMethod: String,
-    @SerialName("RequestType")
+    @SerialName("requestType")
     val requestType: String,
-    @SerialName("ref")
-    val ref: String,
+    @SerialName("referenceNo")
+    val referenceNo: String,
     @SerialName("status")
-    val status: Boolean
+    val status: Boolean,
+    @SerialName("transactionId")
+    val transactionId: String,
+    @SerialName("message")
+    val message: String
 )

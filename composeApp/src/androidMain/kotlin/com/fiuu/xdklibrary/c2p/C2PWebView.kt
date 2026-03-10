@@ -63,7 +63,7 @@ fun C2PWebView(
                     evaluateJavascript(js, null)
                 }
             }
-            loadUrl("https://test.shidistudio.com/checkout")
+            loadUrl("http://10.20.12.35:8101/card/checkout")
 //            webViewClient = object : WebViewClient() {
 //                override fun onPageFinished(view: WebView?, url: String?) {
 //                    super.onPageFinished(view, url)
